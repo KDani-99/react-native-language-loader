@@ -21,7 +21,7 @@ public class RNLanguageLoaderPackage implements ReactPackage {
   public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new RNLanguageLoader(reactContext));
+        modules.add(new RNLanguageLoaderModule(reactContext));
 
         return modules;
     }

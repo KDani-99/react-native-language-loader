@@ -9,11 +9,11 @@ import java.io.*;
 
 import com.facebook.react.bridge.Callback;
 
-public class LanguageLoader extends ReactContextBaseJavaModule {
+public class RNLanguageLoaderModule extends ReactContextBaseJavaModule {
     
   private static ReactApplicationContext reactContext;
 
-  LanguageLoader(ReactApplicationContext context) {
+  RNLanguageLoaderModule(ReactApplicationContext context) {
     super(context);
     reactContext = context;
   }
