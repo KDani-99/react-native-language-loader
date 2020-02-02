@@ -3,7 +3,7 @@
 
 ## Features
 
-Nothing fancy, just enables you to quickly load a single or multiple languages from your android/app/src/main/assets/languages folder (If you've placed your languages files in that folder).
+Nothing fancy, just enables you to quickly load a single or multiple languages (which I needed for localization) from your android/app/src/main/assets/languages folder (If you've placed your languages files in that folder).
 
 ## Installation
 
