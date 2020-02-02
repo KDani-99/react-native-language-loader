@@ -1,0 +1,32 @@
+
+{
+  "name": "react-native-language-loader",
+  "version": "1.0.0",
+  "description": "An easy way to load languages to your app, instead of importing each manually",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native-language-loader",
+    "react-native",
+    "language",
+    "language",
+    "localization",
+    "react-native",
+    "localization",
+    "language",
+    "loader"
+  ],
+  "author": "KDani-99",
+  "license": "MIT",
+  "nativePackage": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KDani-99/react-native-language-loader"
+  },
+  "homepage": "https://github.com/KDani-99/react-native-language-loader",
+  "peerDependencies": {
+    "react-native": "^0.41.2"
+  }
+}
