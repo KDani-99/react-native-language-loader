@@ -22,7 +22,7 @@ public class RNLanguageLoaderModule extends ReactContextBaseJavaModule {
         return "RNLanguageLoader";
     }
 
-    pprivate String getLanguage(String path) throws IOException
+    private String getLanguage(String path) throws IOException
     {
         StringBuilder sb = new StringBuilder();
 
