@@ -107,7 +107,7 @@ import LanguageLoader from 'react-native-language-loader';
 var getLanguages = async() => {
 
     await LanguageLoader.loadLanguagesAsync()
-    .then(languages=>JSON.parse(languages)) // You can skip this
+    .then(languages=>JSON.parse(languages)) // NOTE: If you have at least a file which is not JSON, skip this
     .then(languages=>{
         // use `languages` in your app
         // `languages` is a JSON Array, containing every file from from android/app/src/main/assets/languages
