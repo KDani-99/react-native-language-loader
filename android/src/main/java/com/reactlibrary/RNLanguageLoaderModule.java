@@ -22,7 +22,7 @@ public class RNLanguageLoaderModule extends ReactContextBaseJavaModule {
         return "RNLanguageLoader";
     }
 
-    private String getLanguage(String path) throws IOException
+    pprivate String getLanguage(String path) throws IOException
     {
         StringBuilder sb = new StringBuilder();
 
@@ -45,6 +45,8 @@ public class RNLanguageLoaderModule extends ReactContextBaseJavaModule {
 
         return ls.toString(); 
     }
+
+
     @ReactMethod
     public void loadLanguage(String fileName,String extension,Callback callback)
     {
@@ -53,12 +55,30 @@ public class RNLanguageLoaderModule extends ReactContextBaseJavaModule {
         try
         {
             String language = this.getLanguage("languages"+"/"+fileName+"."+extension);
+
             callback.invoke(null,language);
         }
         catch (IOException ex)
         {
             /* Throw exception */
             callback.invoke(ex.toString(),null);
+        }
+    }
+    @ReactMethod
+    public void loadLanguageAsync(String fileName, String extension, Promise promise)
+    {
+        if(extension == null || extension == "")
+            extension = "json";
+        try
+        {
+            String language = this.getLanguage("languages"+"/"+fileName+"."+extension);
+
+            promise.resolve(language);
+        }
+        catch (IOException ex)
+        {
+            /* Throw exception */
+            promise.reject(ex.toString());
         }
     }
     @ReactMethod
@@ -73,6 +93,20 @@ public class RNLanguageLoaderModule extends ReactContextBaseJavaModule {
         {
             /* Throw exception */
             callback.invoke(ex.toString(),null);
+        }
+    }
+    @ReactMethod
+    public void loadLanguagesAsync(Promise promise)
+    {
+        try
+        {
+            String languages = getLanguages("languages");
+            promise.resolve(languages);
+        }
+        catch (IOException ex)
+        {
+            /* Throw exception */
+            promise.reject(ex.toString());
         }
     }
 }
