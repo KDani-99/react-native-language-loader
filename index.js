@@ -33,6 +33,31 @@ async function loadLanguageAsync(fileName = '',extension = 'json')
     });
 }
 /**
+ * Load a given language using async/await
+ * @param {string} fileName - The name of the language file (without extension).
+ * @param {string} extension Extension (default: json)
+ * @returns Object (default: JSON (Language) | string)
+ */
+async function loadLanguagesAsync()
+{
+    return new Promise((resolve,reject)=>{
+        RNLanguageLoader.loadLanguages((error,languages)=>{
+            if(error)
+                return reject(error);
+            try
+            {
+                var parsed = JSON.parse(languages);
+                return resolve(parsed);
+            }
+            catch(exception)
+            {
+                return reject(exception);
+            }
+            
+        });
+    });
+}
+/**
  * Load a given language using callback
  * @param {string} fileName - The name of the language file (without extension).
  * @param {string} extension Extension (default: json)
@@ -85,5 +110,6 @@ function loadLanguages(callback)
 export default {
     loadLanguage,
     loadLanguages,
-    loadLanguageAsync
+    loadLanguageAsync,
+    loadLanguagesAsync
 };
