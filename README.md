@@ -11,6 +11,12 @@ Nothing fancy, just enables you to quickly load a single or multiple languages (
 
 `$ npm install react-native-language-loader --save`
 
+Create a `languages` folder in `android/app/src/main/assets/`
+
+(Example)
+
+<img src="/screenshots/fs.png"/>
+
 ## Usage
 Load a single language (Using callback)
 
