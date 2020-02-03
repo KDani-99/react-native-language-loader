@@ -3,6 +3,8 @@
 
 ## Features
 
+NOTE: only works on **Android**
+
 Nothing fancy, just enables you to quickly load a single or multiple languages (which I needed for localization) from your android/app/src/main/assets/languages folder (If you've placed your languages files in that folder).
 
 ## Installation
@@ -26,9 +28,8 @@ LanguageLoader.loadLanguage('en','json',(error,language)=>{
         // could be JSON parse exception, file not found exception, etc..
         return;
     }
-    // if the extension is json (default), language will return a JSON object, otherwise a string
-    // use `language` in your app (JSON Object or string)
-    
+    // if the extension is json (default), language will return a JSON object, otherwise a string   
+    console.log(language); // use `language` in your app (JSON Object or string)
 });
 ```
 Load a single language (Using Async/Await)
@@ -44,6 +45,7 @@ var getLanguage = async()=>{
     await LanguageLoader.loadLanguageAsync('en','json')
     .then(language=>{
        // if the extension is json (default), language will return a JSON object, otherwise a string
+       console.log(language);
     })
     .catch(error=>{
         // handle error
@@ -65,7 +67,7 @@ LanguageLoader.loadLanguages((error,languages)=>{
         return;
     }
     // languages is a JSON Array, containing every file from from android/app/src/main/assets/languages
-    
+    console.log(languages);
 });
 ```
 Load every language (Using Async/Await)
@@ -77,6 +79,7 @@ var getLanguages = async()=>{
     await LanguageLoader.loadLanguagesAsync()
     .then(languages=>{
        // languages is a JSON Array, containing every file from from android/app/src/main/assets/languages
+       console.log(languages);
     })
     .catch(error=>{
         // handle error
