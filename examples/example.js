@@ -21,7 +21,7 @@ LanguageLoader.loadLanguage('myLanguage','txt',(error,language)=>{
         // file not found exception, etc..
         return;
     }
-    console.log(parsed); // use `language`in your app
+    console.log(language); // use `language` in your app
 });
 
 /* Load every file from assets/languages */
@@ -63,4 +63,4 @@ var loadLanguages = async() => {
         // file not found exception, etc..
         console.log('ERROR',error);
     });
-}
+};
