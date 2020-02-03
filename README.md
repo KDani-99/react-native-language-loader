@@ -26,16 +26,28 @@ Second parameter is the extension
 ```js
 import LanguageLoader from 'react-native-language-loader';
 
+/* Load `en.json` */
 LanguageLoader.loadLanguage('en','json',(error,language)=>{
-
     if(error)
     {
         // handle error
-        // could be JSON parse exception, file not found exception, etc..
+        // file not found exception, etc..
         return;
     }
-    // if the extension is json (default), language will return a JSON object, otherwise a string   
-    console.log(language); // use `language` in your app (JSON Object or string)
+    // If it is a JSON file, you might want to parse it
+    var parsed = JSON.parse(language);
+    console.log(parsed); // use `language` or `parsed` in your app
+});
+
+/* Load `myLanguage.txt` */
+LanguageLoader.loadLanguage('myLanguage','txt',(error,language)=>{
+    if(error)
+    {
+        // handle error
+        // file not found exception, etc..
+        return;
+    }
+    console.log(language); // use `language` in your app
 });
 ```
 Load a single language (Using Async/Await)
@@ -46,16 +58,17 @@ Second parameter is the extension
 ```js
 import LanguageLoader from 'react-native-language-loader';
 
-var getLanguage = async()=>{
-
+var getLanguage = async () => {
     await LanguageLoader.loadLanguageAsync('en','json')
+    .then(language=>JSON.parse(language)) // You can skip this if it's not a json file
     .then(language=>{
-       // if the extension is json (default), language will return a JSON object, otherwise a string
-       console.log(language);
+        // use `language` in your app
+        console.log(language)
     })
     .catch(error=>{
         // handle error
-        
+        // file not found exception, etc..
+        console.log('ERROR',error);
     });
 };
 
@@ -64,33 +77,38 @@ Load every language (Using callback)
 ```js
 import LanguageLoader from 'react-native-language-loader';
 
+/* Load every file from assets/languages */
 LanguageLoader.loadLanguages((error,languages)=>{
-
     if(error)
     {
         // handle error
-        // could be JSON parse exception, file not found exception, etc..
+        // file not found exception, etc..
         return;
     }
-    // languages is a JSON Array, containing every file from from android/app/src/main/assets/languages
-    console.log(languages);
+    console.log(languages) // use `languages` in your app
+    // or parse it
+    var parsed = JSON.parse(languages);
+    // `parsed` is a JSON Array, containing every file from from android/app/src/main/assets/languages
+    console.log(parsed); // use `parsed` in your app
 });
 ```
 Load every language (Using Async/Await)
 ```js
 import LanguageLoader from 'react-native-language-loader';
 
-var getLanguages = async()=>{
-
+var getLanguages = async() => {
     await LanguageLoader.loadLanguagesAsync()
+    .then(languages=>JSON.parse(languages)) // You can skip this
     .then(languages=>{
-       // languages is a JSON Array, containing every file from from android/app/src/main/assets/languages
-       console.log(languages);
+        // use `languages` in your app
+        // `languages` is a JSON Array, containing every file from from android/app/src/main/assets/languages
+        console.log(languages)
     })
     .catch(error=>{
         // handle error
+        // file not found exception, etc..
+        console.log('ERROR',error);
     });
-    
 };
 ```
 
