@@ -28,6 +28,7 @@ import LanguageLoader from 'react-native-language-loader';
 
 /* Load `en.json` */
 LanguageLoader.loadLanguage('en','json',(error,language)=>{
+
     if(error)
     {
         // handle error
@@ -37,10 +38,12 @@ LanguageLoader.loadLanguage('en','json',(error,language)=>{
     // If it is a JSON file, you might want to parse it
     var parsed = JSON.parse(language);
     console.log(parsed); // use `language` or `parsed` in your app
+    
 });
 
 /* Load `myLanguage.txt` */
 LanguageLoader.loadLanguage('myLanguage','txt',(error,language)=>{
+
     if(error)
     {
         // handle error
@@ -48,6 +51,7 @@ LanguageLoader.loadLanguage('myLanguage','txt',(error,language)=>{
         return;
     }
     console.log(language); // use `language` in your app
+    
 });
 ```
 Load a single language (Using Async/Await)
@@ -59,6 +63,7 @@ Second parameter is the extension
 import LanguageLoader from 'react-native-language-loader';
 
 var getLanguage = async () => {
+
     await LanguageLoader.loadLanguageAsync('en','json')
     .then(language=>JSON.parse(language)) // You can skip this if it's not a json file
     .then(language=>{
@@ -70,6 +75,7 @@ var getLanguage = async () => {
         // file not found exception, etc..
         console.log('ERROR',error);
     });
+    
 };
 
 ```
@@ -79,6 +85,7 @@ import LanguageLoader from 'react-native-language-loader';
 
 /* Load every file from assets/languages */
 LanguageLoader.loadLanguages((error,languages)=>{
+
     if(error)
     {
         // handle error
@@ -90,6 +97,7 @@ LanguageLoader.loadLanguages((error,languages)=>{
     var parsed = JSON.parse(languages);
     // `parsed` is a JSON Array, containing every file from from android/app/src/main/assets/languages
     console.log(parsed); // use `parsed` in your app
+    
 });
 ```
 Load every language (Using Async/Await)
@@ -97,6 +105,7 @@ Load every language (Using Async/Await)
 import LanguageLoader from 'react-native-language-loader';
 
 var getLanguages = async() => {
+
     await LanguageLoader.loadLanguagesAsync()
     .then(languages=>JSON.parse(languages)) // You can skip this
     .then(languages=>{
@@ -109,6 +118,7 @@ var getLanguages = async() => {
         // file not found exception, etc..
         console.log('ERROR',error);
     });
+    
 };
 ```
 
