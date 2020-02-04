@@ -35,12 +35,17 @@ public class RNLanguageLoaderModule extends ReactContextBaseJavaModule {
 
         return sb.toString();
     }
-    private String getLanguages(String path) throws IOException
+
+    private String getLanguages(String path,String extension) throws IOException
     {
         ArrayList<String> ls = new ArrayList<String>();
 
         String [] list = reactContext.getAssets().list(path);
         for (String file : list) {
+            String [] props = file.split("\\.");
+
+            if(props.length > 0 && !props[props.length-1].equals(extension)) continue;
+
             ls.add(this.getLanguage((path + "/" + file)));
         }
 
@@ -83,11 +88,11 @@ public class RNLanguageLoaderModule extends ReactContextBaseJavaModule {
         }
     }
     @ReactMethod
-    public void loadLanguages(Callback callback)
+    public void loadLanguages(String extension,Callback callback)
     {
         try
         {
-            String languages = getLanguages("languages");
+            String languages = getLanguages("languages",extension);
             callback.invoke(null,languages);
         }
         catch (IOException ex)
@@ -97,12 +102,13 @@ public class RNLanguageLoaderModule extends ReactContextBaseJavaModule {
         }
     }
     @ReactMethod
-    public void loadLanguagesAsync(Promise promise)
+    public void loadLanguagesAsync(String extension,Promise promise)
     {
         try
         {
-            String languages = getLanguages("languages");
+            String languages = getLanguages("languages",extension);
             promise.resolve(languages);
+
         }
         catch (IOException ex)
         {
