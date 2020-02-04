@@ -115,6 +115,9 @@ LanguageLoader.loadLanguages('json',(error,languages)=>{
         // file not found exception, etc..
         return;
     }
+    
+    // languages is an array, even if no files could be found ( Empty array )
+    
     console.log(languages) // use `languages` in your app
     // or parse it
     var parsed = JSON.parse(languages);
@@ -135,6 +138,7 @@ var getLanguages = async() => {
     await LanguageLoader.loadLanguagesAsync('json')
     .then(languages=>JSON.parse(languages)) // NOTE: If you have at least 1 file which is not JSON, skip this
     .then(languages=>{
+        // languages is an array, even if no files could be found ( Empty array )
         // use `languages` in your app
         // `languages` is a JSON Array, containing every file from from android/app/src/main/assets/languages
         console.log(languages)
