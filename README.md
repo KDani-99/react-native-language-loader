@@ -3,24 +3,42 @@
 
 ## Features
 
-NOTE: only works on **Android**
+**Note**: Do not use any version below 1.2.3
+
+From 1.2.3:
+Works on **Android** & **ios**
 
 ***Recommended to use JSON files***
 
-Nothing fancy, just enables you to quickly load a single or multiple languages (which I needed for localization) from your android/app/src/main/assets/languages folder (If you've placed your languages files in that folder).
+Nothing fancy, just enables you to quickly load a single or multiple languages (which I needed for localization) from your `android/app/src/main/assets/languages` folder (android) or from your `Bundle.main` on ios (If you've placed your languages files in that folder).
 
 ## Installation
 
 `$ npm install react-native-language-loader --save`
 
-Create a `languages` folder in `android/app/src/main/assets/`
+### Android
+
+1. Create a `languages` folder in `android/app/src/main/assets/`
+2. Copy your language files to this folder
 
 (Example)
 
 <img src="/screenshots/fs.png"/>
 
+### IOS
+
+1. Open **Xcode** (from `ios/<yourAppName>.xcodeproj`)
+2. Drag & Drop or copy your language files to your xcode project (make sure to select your project as the target when copying)
+
+(3. You might have to run ```pod install``` in your `/ios/` folder)
+
+(Example)
+
+<img src="/screenshots/fs2.png"/>
+
 ## Usage
-Load a single language (Using callback)
+
+To load a specific language (Using callback)
 
 First parameter is the name of the file (without extension)
 
@@ -82,11 +100,14 @@ var getLanguage = async () => {
 
 ```
 Load every language (Using callback)
+
+First parameter is the extension of the files that you'd like to load
+
 ```js
 import LanguageLoader from 'react-native-language-loader';
 
 /* Load every file from assets/languages */
-LanguageLoader.loadLanguages((error,languages)=>{
+LanguageLoader.loadLanguages('json',(error,languages)=>{
 
     if(error)
     {
@@ -103,12 +124,15 @@ LanguageLoader.loadLanguages((error,languages)=>{
 });
 ```
 Load every language (Using Async/Await)
+
+First parameter is the extension of the files that you'd like to load
+
 ```js
 import LanguageLoader from 'react-native-language-loader';
 
 var getLanguages = async() => {
 
-    await LanguageLoader.loadLanguagesAsync()
+    await LanguageLoader.loadLanguagesAsync('json')
     .then(languages=>JSON.parse(languages)) // NOTE: If you have at least 1 file which is not JSON, skip this
     .then(languages=>{
         // use `languages` in your app
@@ -124,27 +148,20 @@ var getLanguages = async() => {
 };
 ```
 
-## Getting started
+## Exceptions
 
-`$ npm install react-native-language-loader --save`
+IOS:
+
+    `could_not_read_content`
+    
+    `file_not_found`
+    
+    `could_not_load_files`
+    
+Android:
+
+    IOException (Java)
 
 ### Mostly automatic installation
 
 `$ react-native link react-native-language-loader`
-
-### Manual installation
-
-#### Android
-
-1. Open up `android/app/src/main/java/[...]/MainActivity.java`
-  - Add `import com.reactlibrary.RNLanguageLoaderPackage;` to the imports at the top of the file
-  - Add `new RNLanguageLoaderPackage()` to the list returned by the `getPackages()` method
-2. Append the following lines to `android/settings.gradle`:
-  	```
-  	include ':react-native-language-loader'
-  	project(':react-native-language-loader').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-language-loader/android')
-  	```
-3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-  	```
-      compile project(':react-native-language-loader')
-  	```
