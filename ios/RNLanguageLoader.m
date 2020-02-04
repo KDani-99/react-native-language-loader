@@ -10,6 +10,8 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(loadLanguage:(NSString *)fileName type:(NSString *)type callback:(RCTResponseSenderBlock)callback)
 {
   
+  type = [type lowercaseString];
+  
   NSString * res = [[NSBundle mainBundle] pathForResource:fileName ofType:type];
   
   if([[NSFileManager defaultManager] fileExistsAtPath:res])
@@ -33,6 +35,8 @@ RCT_EXPORT_METHOD(loadLanguage:(NSString *)fileName type:(NSString *)type callba
 
 RCT_EXPORT_METHOD(loadLanguageAsync:(NSString *)fileName type:(NSString *)type resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
+  type = [type lowercaseString];
+  
   NSString * res = [[NSBundle mainBundle] pathForResource:fileName ofType:type];
   
   if([[NSFileManager defaultManager] fileExistsAtPath:res])
@@ -57,6 +61,8 @@ RCT_EXPORT_METHOD(loadLanguageAsync:(NSString *)fileName type:(NSString *)type r
 
 RCT_EXPORT_METHOD(loadLanguagesAsync:(NSString *)type resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
+  type = [type lowercaseString];
+  
   NSArray * files = [[NSBundle mainBundle] pathsForResourcesOfType:type inDirectory:nil];
   
   NSMutableArray * result = [NSMutableArray array];
@@ -75,12 +81,22 @@ RCT_EXPORT_METHOD(loadLanguagesAsync:(NSString *)type resolver:(RCTPromiseResolv
     [result addObject:content];
   }
   
-  resolve(result);
+  if([type isEqualToString:@"json"])
+  {
+    NSString * converted = [[result valueForKey:@"description"] componentsJoinedByString:@","];
+    converted = [@"[" stringByAppendingString:converted];
+    converted = [converted stringByAppendingString:@"]"];
+    resolve(converted);
+  }
+  else
+    resolve(result);
   
 }
 
 RCT_EXPORT_METHOD(loadLanguages:(NSString *)type callback:(RCTResponseSenderBlock)callback)
 {
+  type = [type lowercaseString];
+  
   NSArray * files = [[NSBundle mainBundle] pathsForResourcesOfType:type inDirectory:nil];
   
   NSMutableArray * result = [NSMutableArray array];
@@ -98,7 +114,16 @@ RCT_EXPORT_METHOD(loadLanguages:(NSString *)type callback:(RCTResponseSenderBloc
     [result addObject:content];
   }
   
-  callback(@[[NSNull null],result]);
+  if([type isEqualToString:@"json"])
+  {
+    NSString * converted = [[result valueForKey:@"description"] componentsJoinedByString:@","];
+    converted = [@"[" stringByAppendingString:converted];
+    converted = [converted stringByAppendingString:@"]"];
+    
+   callback(@[[NSNull null],converted]);
+  }
+  else
+    callback(@[[NSNull null],result]);
   
 }
 
