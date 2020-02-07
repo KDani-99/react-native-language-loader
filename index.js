@@ -27,7 +27,7 @@ const {RNLanguageLoader} = NativeModules;
 async function loadLanguagesAsync(extension = 'json')
 {
     if(extension === 'json')
-        return RNLanguageLoader.loadLanguageAsync(extension)
+        return RNLanguageLoader.loadLanguagesAsync(extension)
         .then(langs=>JSON.parse(langs))
     else
         return RNLanguageLoader.loadLanguagesAsync(extension);
