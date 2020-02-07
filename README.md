@@ -3,6 +3,8 @@
 
 ## Features
 
+**From 1.2.5: extension = 'json' is parsed by default, so you won't have to parse it again** 
+
 **Note**: Do not use any version below 1.2.3
 
 From 1.2.3:
