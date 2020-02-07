@@ -26,7 +26,11 @@ const {RNLanguageLoader} = NativeModules;
  */
 async function loadLanguagesAsync(extension = 'json')
 {
-    return RNLanguageLoader.loadLanguagesAsync(extension);
+    if(extension === 'json')
+        return RNLanguageLoader.loadLanguageAsync(extension)
+        .then(langs=>JSON.parse(langs))
+    else
+        return RNLanguageLoader.loadLanguagesAsync(extension);
 }
 
 /**
@@ -53,7 +57,11 @@ async function loadLanguagesAsync(extension = 'json')
  */
 async function loadLanguageAsync(fileName = '', extension = 'json')
 {
-    return RNLanguageLoader.loadLanguage(fileName,extension);
+    if(extension === 'json')
+        return NLanguageLoader.loadLanguageAsync(fileName,extension)
+        .then(lang=>JSON.parse(lang));
+    else
+        return RNLanguageLoader.loadLanguageAsync(fileName,extension);
 }
 /**
  * Load a specific file from the assets/languages folder (Android), mainbundle(IOS)
@@ -78,7 +86,23 @@ async function loadLanguageAsync(fileName = '', extension = 'json')
  */
 function loadLanguage(fileName = '', extension = 'json',callback = null)
 {
-    return RNLanguageLoader.loadLanguage(fileName,extension,callback);
+    if(extension === 'json')
+        return RNLanguageLoader.loadLanguage(fileName,extension,(error,language)=>
+        {
+            if(error)
+                return callback(error,null);
+            try
+            {
+                let data = JSON.parse(language);
+                callback(null,data);
+            }
+            catch(ex)
+            {
+                return callback(ex,null);
+            }
+        });
+    else
+        return RNLanguageLoader.loadLanguage(fileName,extension,callback);
 }
 /**
  * Load every file from the assets/languages folder (Android), mainbundle(IOS)
@@ -102,6 +126,21 @@ function loadLanguage(fileName = '', extension = 'json',callback = null)
  */
 function loadLanguages(extension = 'json',callback = null)
 {
+    if(extension === 'json')
+        return RNLanguageLoader.loadLanguages(extension,(error,languages)=>
+        {
+            if(error)
+                return callback(error,null);
+            try
+            {
+                let data = JSON.parse(languages);
+                callback(null,data);
+            }
+            catch(ex)
+            {
+                return callback(ex,null);
+            }
+        });
     return RNLanguageLoader.loadLanguages(extension,callback);
 }
 
