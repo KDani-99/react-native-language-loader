@@ -12,11 +12,7 @@ Works on **Android** & **ios**
 
 ***Recommended to use JSON files***
 
-Nothing fancy, just enables you to quickly load a specific language file or multiple languages (which I needed for localization) from your `android/app/src/main/assets/languages` folder (android) or from your `Bundle.main` on ios (If you've placed your languages files in that folder).
-
-**Note: (IOS)** If the extension is **JSON**, it returns a JSON string that you'll have to parse using ```js JSON.parse()```, otherwise returns an array with the content of the loaded files
-
-On *Android*, it always returns a string, consider parsing it
+Nothing fancy, just a lightweight module that enables you to quickly load a specific language file or multiple languages (which I needed for localization) from your `android/app/src/main/assets/languages` folder (android) or from your `Bundle.main` on ios (If you've placed your languages files in that folder).
 
 (Example)
 <img src="/screenshots/jsonResult.png" />
