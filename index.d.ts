@@ -1,4 +1,4 @@
-export declare type RNLanguageLoader = {
+declare type RNLanguageLoader = {
     /**
      * Returns the content of a specific file from the assets/languages folder (Android), main bundle (IOS).
      *
@@ -40,3 +40,4 @@ export declare type RNLanguageLoader = {
      */
     loadLanguagesAsync(extension: string): Promise<string[]>;
 };
+export default RNLanguageLoader;
